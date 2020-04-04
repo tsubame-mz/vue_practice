@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { authorizeToken } from "./guards";
 import KbnBoardView from "../components/templates/KbnBoardView";
 import KbnLoginView from "../components/templates/KbnLoginView";
 import KbnTaskDetailModal from "../components/templates/KbnTaskDetailModal";
@@ -10,7 +11,7 @@ const routes = [
   {
     path: "/",
     component: KbnBoardView,
-    meta: { requireAuth: true },
+    meta: { requiresAuth: true },
   },
   {
     path: "/login",
@@ -29,5 +30,6 @@ const routes = [
 const router = new VueRouter({
   routes,
 });
+router.beforeEach(authorizeToken);
 
 export default router;

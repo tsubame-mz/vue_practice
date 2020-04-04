@@ -1,7 +1,16 @@
+import * as types from "./mutation-types";
+import { Auth } from "../api";
+
 /* eslint-disable no-unused-vars */
 export default {
-  login: ({ commit }) => {
-    throw new Error("login is not implemented");
+  login: ({ commit }, authInfo) => {
+    return Auth.login(authInfo)
+      .then(({ token, userId }) => {
+        commit(types.AUTH_LOGIN, { token, userId });
+      })
+      .catch((err) => {
+        throw err;
+      });
   },
   logout: ({ commit }) => {
     throw new Error("logout is not implemented");

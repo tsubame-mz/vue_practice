@@ -3,7 +3,7 @@ import * as types from "./mutation-types";
 
 export default {
   [types.AUTH_LOGIN](state, payload) {
-    throw new Error("AUTH_LOGIN is not implemented");
+    state.auth = payload;
   },
   [types.AUTH_LOGOUT](state) {
     throw new Error("AUTH_LOGOUT is not implemented");

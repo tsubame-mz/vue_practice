@@ -14,7 +14,6 @@ export default {
   components: { KbnLoginForm },
 
   methods: {
-    // eslint-disable-next-line no-unused-vars
     onLogin(authInfo) {
       return this.$store
         .dispatch("login", authInfo)
