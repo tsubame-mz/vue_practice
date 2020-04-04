@@ -40,7 +40,7 @@
 <script>
 import KbnButton from "../atoms/KbnButton";
 const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const required = (val) => !!val.trim();
+const required = val => !!val.trim();
 
 export default {
   name: "KbnLoginForm",
@@ -50,8 +50,8 @@ export default {
   props: {
     onlogin: {
       type: Function,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
@@ -59,7 +59,7 @@ export default {
       email: "",
       password: "",
       progress: false,
-      error: "",
+      error: ""
     };
   },
 
@@ -68,11 +68,11 @@ export default {
       return {
         email: {
           required: required(this.email),
-          format: REGEX_EMAIL.test(this.email),
+          format: REGEX_EMAIL.test(this.email)
         },
         password: {
-          required: required(this.password),
-        },
+          required: required(this.password)
+        }
       };
     },
 
@@ -82,7 +82,9 @@ export default {
       let valid = true;
       for (let i = 0; i < fields.length; i++) {
         const field = fields[i];
-        valid = Object.keys(validadtion[field]).every((key) => validadtion[field][key]);
+        valid = Object.keys(validadtion[field]).every(
+          key => validadtion[field][key]
+        );
         if (!valid) {
           break;
         }
@@ -92,7 +94,7 @@ export default {
 
     disableLoginAction() {
       return !this.valid || this.progress;
-    },
+    }
   },
 
   methods: {
@@ -111,15 +113,15 @@ export default {
 
       this.$nextTick(() => {
         this.onlogin({ email: this.email, password: this.password })
-          .catch((err) => {
+          .catch(err => {
             this.error = err.message;
           })
           .then(() => {
             this.progress = false;
           });
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

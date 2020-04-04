@@ -20,14 +20,15 @@ export default {
         .then(() => {
           this.$router.push({ path: "/" });
         })
-        .catch((err) => {
-          this.throwReject(err);
+        .catch(err => {
+          throw err;
+          // this.throwReject(err);
         });
     },
     throwReject(err) {
       return Promise.reject(err);
-    },
-  },
+    }
+  }
 };
 </script>
 
