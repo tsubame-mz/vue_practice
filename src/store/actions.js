@@ -30,13 +30,13 @@ export default {
         throw err;
       });
   },
-  addTask: ({ commit }) => {
+  addTask: ({ commit, state }, { name, listId }) => {
     throw new Error("addTask is not implemented");
   },
-  updateTask: ({ commit }) => {
+  updateTask: ({ commit, state }, task) => {
     throw new Error("updateTask is not implemented");
   },
-  removeTask: ({ commit }) => {
+  removeTask: ({ commit, state }, { id, listId }) => {
     throw new Error("removeTask is not implemented");
   },
 };

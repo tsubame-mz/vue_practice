@@ -6,7 +6,7 @@
         <KbnTaskCard v-bind="item" @remove="onRemove" />
       </li>
     </ul>
-    <KbnTaskForm v-if="shown" :list-id="id" @close="shown=false" />
+    <KbnTaskForm v-if="shown" :listId="id" @close="shown=false" />
   </div>
 </template>
 
@@ -43,6 +43,14 @@ export default {
     return {
       shown: false
     };
+  },
+
+  methods: {
+    onRemove({ id, listId }) {
+      return this.$store.dispatch("removeTask", { id, listId }).catch(err => {
+        throw err;
+      });
+    }
   }
 };
 </script>

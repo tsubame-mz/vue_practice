@@ -1,9 +1,9 @@
 <template>
   <div class="task-card">
     <div class="name">
-      <!-- <router-link> -->
-      <h3>{{name}}</h3>
-      <!-- </router-link> -->
+      <router-link :to="{name: 'taskDetailModal', params: {id}}">
+        <h3>{{name}}</h3>
+      </router-link>
     </div>
     <div class="actions">
       <KbnButton type="text" @click="$emit('remove', {id, listId})">
@@ -21,9 +21,7 @@ export default {
   name: "KbnTaskCard",
 
   components: {
-    // eslint-disable-next-line vue/no-unused-components
     KbnButton,
-    // eslint-disable-next-line vue/no-unused-components
     KbnIcon
   },
 
