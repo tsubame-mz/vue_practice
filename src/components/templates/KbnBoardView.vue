@@ -1,18 +1,23 @@
 <template>
-  <div>
+  <div class="board-view">
     <KbnBoardNavigation @logout="onLogout" />
-    <p v-if="progress" class="progress">{{ message}}</p>
+    <p v-if="progress" class="progress">{{ message }}</p>
+    <KbnBoardTask :lists="lists" />
+    <router-view />
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import KbnBoardNavigation from "../molecules/KbnBoardNavigation";
+import KbnBoardTask from "../organisms/KbnBoardTask";
 
 export default {
   name: "KbnBoardView",
 
   components: {
-    KbnBoardNavigation
+    KbnBoardNavigation,
+    KbnBoardTask
   },
 
   data() {
@@ -20,6 +25,14 @@ export default {
       progress: false,
       message: ""
     };
+  },
+
+  computed: mapState({
+    lists: state => state.board.lists
+  }),
+
+  created() {
+    this.loadLists();
   },
 
   methods: {
@@ -31,6 +44,18 @@ export default {
     resetProgress() {
       this.progress = false;
       this.message = "";
+    },
+
+    loadLists() {
+      this.setProgress("読込み中...");
+      this.$store
+        .dispatch("fetchList")
+        .catch(err => {
+          throw err;
+        })
+        .then(() => {
+          this.resetProgress();
+        });
     },
 
     // eslint-disable-next-line no-unused-vars
@@ -51,3 +76,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.board-view {
+  border: medium solid black;
+}
+
+.progress {
+  margin: auto;
+}
+</style>

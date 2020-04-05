@@ -9,7 +9,7 @@ export default {
     state.auth = payload;
   },
   [types.FETCH_ALL_TASK_LIST](state, payload) {
-    throw new Error("FETCH_ALL_TASK_LIST is not implemented");
+    state.board.lists = payload;
   },
   [types.ADD_TASK](state, payload) {
     throw new Error("ADD_TASK is not implemented");

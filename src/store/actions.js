@@ -1,5 +1,5 @@
 import * as types from "./mutation-types";
-import { Auth } from "../api";
+import { Auth, List } from "../api";
 
 /* eslint-disable no-unused-vars */
 export default {
@@ -21,8 +21,14 @@ export default {
         throw err;
       });
   },
-  fetchList: ({ commit }) => {
-    throw new Error("fetchList is not implemented");
+  fetchList: ({ commit, state }) => {
+    return List.fetch(state.auth.token)
+      .then(({ lists }) => {
+        commit(types.FETCH_ALL_TASK_LIST, lists);
+      })
+      .catch((err) => {
+        throw err;
+      });
   },
   addTask: ({ commit }) => {
     throw new Error("addTask is not implemented");
