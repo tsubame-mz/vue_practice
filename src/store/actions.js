@@ -12,8 +12,14 @@ export default {
         throw err;
       });
   },
-  logout: ({ commit }) => {
-    throw new Error("logout is not implemented");
+  logout: ({ commit, state }) => {
+    return Auth.logout(state.auth.token)
+      .then(() => {
+        commit(types.AUTH_LOGOUT, { token: null, userId: null });
+      })
+      .catch((err) => {
+        throw err;
+      });
   },
   fetchList: ({ commit }) => {
     throw new Error("fetchList is not implemented");

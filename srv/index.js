@@ -1,5 +1,6 @@
 import express from "express";
 
+// eslint-disable-next-line no-unused-vars
 export default (app, http) => {
   app.use(express.json());
 
@@ -24,5 +25,13 @@ export default (app, http) => {
     } else {
       res.status(404).json({ message: "ユーザーが登録されていません。" });
     }
+  });
+
+  app.delete("/auth/logout", (req, res) => {
+    const token = req.headers["x-kbn-token"];
+    if (!token) {
+      return res.status(403).json({ message: "許可されていません" });
+    }
+    res.sendStatus(204);
   });
 };

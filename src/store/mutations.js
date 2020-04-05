@@ -5,8 +5,8 @@ export default {
   [types.AUTH_LOGIN](state, payload) {
     state.auth = payload;
   },
-  [types.AUTH_LOGOUT](state) {
-    throw new Error("AUTH_LOGOUT is not implemented");
+  [types.AUTH_LOGOUT](state, payload) {
+    state.auth = payload;
   },
   [types.FETCH_ALL_TASK_LIST](state, payload) {
     throw new Error("FETCH_ALL_TASK_LIST is not implemented");
