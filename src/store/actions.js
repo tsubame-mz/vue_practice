@@ -1,5 +1,5 @@
 import * as types from "./mutation-types";
-import { Auth, List } from "../api";
+import { Auth, List, Task } from "../api";
 
 /* eslint-disable no-unused-vars */
 export default {
@@ -31,12 +31,30 @@ export default {
       });
   },
   addTask: ({ commit, state }, { name, listId }) => {
-    throw new Error("addTask is not implemented");
+    return Task.add(state.auth.token, { name, listId })
+      .then((task) => {
+        commit(types.ADD_TASK, task);
+      })
+      .catch((err) => {
+        throw err;
+      });
   },
   updateTask: ({ commit, state }, task) => {
-    throw new Error("updateTask is not implemented");
+    return Task.update(state.auth.token, task)
+      .then(() => {
+        commit(types.UPDATE_TASK, task);
+      })
+      .catch((err) => {
+        throw err;
+      });
   },
   removeTask: ({ commit, state }, { id, listId }) => {
-    throw new Error("removeTask is not implemented");
+    return Task.remove(state.auth.token, { id })
+      .then(() => {
+        commit(types.REMOVE_TASK, { id, listId });
+      })
+      .catch((err) => {
+        throw err;
+      });
   },
 };

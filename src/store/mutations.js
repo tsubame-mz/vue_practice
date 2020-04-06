@@ -12,12 +12,41 @@ export default {
     state.board.lists = payload;
   },
   [types.ADD_TASK](state, payload) {
-    throw new Error("ADD_TASK is not implemented");
+    const task = payload;
+    for (let i = 0; i < state.board.lists.length; i++) {
+      const list = state.board.lists[i];
+      if (list.id === task.listId) {
+        list.items.push(task);
+        break;
+      }
+    }
   },
   [types.UPDATE_TASK](state, payload) {
-    throw new Error("UPDATE_TASK is not implemented");
+    const task = payload;
+    for (let i = 0; i < state.board.lists.length; i++) {
+      const list = state.board.lists[i];
+      if (list.id !== task.listId) {
+        continue;
+      }
+      for (let j = 0; j < list.items.length; j++) {
+        const item = list.items[j];
+        if (item.id === task.id) {
+          item.name = task.name;
+          item.description = task.description;
+          break;
+        }
+      }
+    }
   },
   [types.REMOVE_TASK](state, payload) {
-    throw new Error("REMOVE_TASK is not implemented");
+    const { id, listId } = payload;
+    for (let i = 0; i < state.board.lists.length; i++) {
+      const list = state.board.lists[i];
+      if (list.id !== listId) {
+        continue;
+      }
+      // 削除したもの以外でリストを組み直す
+      list.items = list.items.filter((item) => item.id !== id);
+    }
   },
 };
